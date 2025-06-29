@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Text-Based Adventure Game Player</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            text-align: center;
+            margin: 0;
+        }
+
+        button:enabled {
+            cursor: pointer;
+        }
+
+        .smallMenuButton {
+            width: 9.5vw;
+            padding: 1vh 0;
+            margin-inline: 0.5vw;
+        }
+
+        #quit {
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+
+        #text {
+            height: 70vh;
+            padding-top: 10vh;
+            font-size: 3vh;
+        }
+
+        #inputOptions {
+            height: 10vh;
+            font-size: 2.5vh;
+        }
+
+        #input {
+            height: 10vh;
+            border: none;
+            outline: 0.5vh solid black;
+            width: 98%;
+            padding: 0;
+            padding-left: 2%;
+            font-size: 5vh;
+        }
+
+        #gameUpload {
+            display: none;
+        }
+
+        #uploadButton {
+            margin-bottom: 0;
+            width: 20vw;
+            padding: 1vh 0;
+            margin-inline: 1vw;
+        }
+
+        #playScreen * {
+            margin: 0
+        }
+
+        #fileInfo {
+            color: #202020;
+        }
+
+        #fileOptions {
+            border: 0.25vh solid black;
+            border-radius: 0.25vh;
+            width: 35%;
+            margin: auto;
+            margin-bottom: 2.5vh;
+            padding: 1vw 0;
+        }
+
+        #play {
+            width: 20vw;
+            padding: 1.25vh 0;
+        }
+    </style>
+    <style id="normalStyle">
+
+    </style>
+</head>
+
+<body>
+    <div id="mainMenu">
+        <h1>Text-Based Adventure Game Player</h1>
+        <div id="fileOptions">
+            <button id="uploadButton">Upload Game File</button>
+            <input type="file" accept=".json" id="gameUpload">
+            <p id="fileInfo">No file chosen</p>
+            <a id="saveLink"><button disabled="true" id="save" class="smallMenuButton">Download Save</button></a><button disabled="true" id="reset"
+                class="smallMenuButton">Reset Save</button>
+        </div>
+        <button disabled="true" id="play">Play</button>
+    </div>
+    <div id="playScreen" style="display: none;">
+        <button id="quit">Quit</button>
+        <p id="text"></p>
+        <p id="inputOptions"></p>
+        <input id="input" title="Type choice here.">
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,25 @@
+{
+    "name": "template",
+    "progress": ["screens", "screens.options.door 1"],
+    "screens": {
+        "text": "Example",
+        "options": {
+            "door 1": {
+                "purpose": "open door 1",
+                "text": "Behind door 1 is a portal leading back to the beginning.",
+                "options": {
+                    "continue": {
+                        "purpose": "go through the portal",
+                        "goto": "screens"
+                    }
+                }
+            },
+            "Door 2": {
+                "purpose": "open door 2",
+                "type": "end",
+                "text": "There was a lion behind the door and it ate you.",
+                "disableUndo": true
+            }
+        }
+    }
+}
