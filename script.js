@@ -141,6 +141,7 @@ function getScreen() {
         if (Object.hasOwn(style, "all")) {
             document.getElementById("playScreen").style.backgroundColor = Object.hasOwn(style.all, "backgroundColor") ? style.all.backgroundColor : "";
             document.getElementById("playScreen").style.color = Object.hasOwn(style.all, "color") ? style.all.color : "";
+            document.getElementById("playScreen").style.fontFamily = Object.hasOwn(style.choices, "fontFamily") ? style.all.fontFamily : "";
             document.getElementById("playScreen").style.fontSize = Object.hasOwn(style.all, "fontSize") ? style.all.fontSize : "";
             document.getElementById("playScreen").style.fontStyle = Object.hasOwn(style.all, "fontStyle") ? style.all.fontStyle : "";
             document.getElementById("playScreen").style.fontVariant = Object.hasOwn(style.all, "fontVariant") ? style.all.fontVariant : "";
@@ -160,6 +161,7 @@ function getScreen() {
         if (Object.hasOwn(style, "header")) {
             document.getElementById("header").style.backgroundColor = Object.hasOwn(style.header, "backgroundColor") ? style.header.backgroundColor : "";
             document.getElementById("header").style.color = Object.hasOwn(style.header, "color") ? style.header.color : "";
+            document.getElementById("header").style.fontFamily = Object.hasOwn(style.choices, "fontFamily") ? style.header.fontFamily : "";
             document.getElementById("header").style.fontSize = Object.hasOwn(style.header, "fontSize") ? style.header.fontSize : "";
             document.getElementById("header").style.fontStyle = Object.hasOwn(style.header, "fontStyle") ? style.header.fontStyle : "";
             document.getElementById("header").style.fontVariant = Object.hasOwn(style.header, "fontVariant") ? style.header.fontVariant : "";
@@ -183,6 +185,7 @@ function getScreen() {
         if (Object.hasOwn(style, "text")) {
             document.getElementById("text").style.backgroundColor = Object.hasOwn(style.text, "backgroundColor") ? style.text.backgroundColor : "";
             document.getElementById("text").style.color = Object.hasOwn(style.text, "color") ? style.text.color : "";
+            document.getElementById("text").style.fontFamily = Object.hasOwn(style.text, "fontFamily") ? style.choices.text : "";
             document.getElementById("text").style.fontSize = Object.hasOwn(style.text, "fontSize") ? style.text.fontSize : "";
             document.getElementById("text").style.fontStyle = Object.hasOwn(style.text, "fontStyle") ? style.text.fontStyle : "";
             document.getElementById("text").style.fontVariant = Object.hasOwn(style.text, "fontVariant") ? style.text.fontVariant : "";
@@ -206,6 +209,7 @@ function getScreen() {
         if (Object.hasOwn(style, "choices")) {
             document.getElementById("inputOptions").style.backgroundColor = Object.hasOwn(style.choices, "backgroundColor") ? style.choices.backgroundColor : "";
             document.getElementById("inputOptions").style.color = Object.hasOwn(style.choices, "color") ? style.choices.color : "";
+            document.getElementById("inputOptions").style.fontFamily = Object.hasOwn(style.choices, "fontFamily") ? style.choices.fontFamily : "";
             document.getElementById("inputOptions").style.fontSize = Object.hasOwn(style.choices, "fontSize") ? style.choices.fontSize : "";
             document.getElementById("inputOptions").style.fontStyle = Object.hasOwn(style.choices, "fontStyle") ? style.choices.fontStyle : "";
             document.getElementById("inputOptions").style.fontVariant = Object.hasOwn(style.choices, "fontVariant") ? style.choices.fontVariant : "";

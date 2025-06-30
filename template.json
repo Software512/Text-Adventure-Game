@@ -32,7 +32,8 @@
             },
             "text": {
                 "fontStyle": "italic",
-                "outlineStyle": "dashed"
+                "outlineStyle": "dashed",
+                "fontFamily": "cursive"
             }
         },
         "death": {
