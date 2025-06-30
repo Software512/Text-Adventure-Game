@@ -58,6 +58,11 @@ document.getElementById("reset").addEventListener("click", () => {
     }
 });
 
+document.getElementById("quit").addEventListener("click", () => {
+    document.getElementById("mainMenu").style.display = "";
+    document.getElementById("playScreen").style.display = "none";
+});
+
 function getValueFromPath(path) {
     let object = gameFile;
     try {
@@ -101,6 +106,7 @@ function getScreen() {
                     i++
                 } else {
                     error("No purpose for " + option[0] + ".");
+                    return;
                 }
             }
         } else {
@@ -116,6 +122,37 @@ function getScreen() {
         optionsText += "\nType go back to undo the last choice.";
     }
     document.getElementById("inputOptions").innerText = optionsText;
+    let style;
+    if (Object.hasOwn(currentPathContents, "style")) {
+        style = getValueFromPath("styles." + currentPathContents.style);
+    } else if (Object.hasOwn(gameFile, "styles")) {
+        if (Object.hasOwn(gameFile.styles, "default")) {
+            style = gameFile.styles.default;
+        }
+    }
+    if (JSON.stringify(style).includes(";")) {
+        error("Game file attempted to inject disallowed code into the player.");
+        return;
+    }
+    if (style != undefined) {
+        document.getElementById("playScreen").style.backgroundColor = Object.hasOwn(style, "backgroundColor") ? style.backgroundColor : "";
+        document.getElementById("playScreen").style.color = Object.hasOwn(style, "color") ? style.color : "";
+        document.getElementById("playScreen").style.font = Object.hasOwn(style, "font") ? style.font : "";
+        document.getElementById("playScreen").style.fontSize = Object.hasOwn(style, "fontSize") ? style.fontSize : "";
+        document.getElementById("playScreen").style.fontStyle = Object.hasOwn(style, "fontStyle") ? style.fontStyle : "";
+        document.getElementById("playScreen").style.fontVariant = Object.hasOwn(style, "fontVariant") ? style.fontVariant : "";
+        document.getElementById("playScreen").style.fontWeight = Object.hasOwn(style, "fontWeight") ? style.fontWeight : "";
+        document.getElementById("playScreen").style.letterSpacing = Object.hasOwn(style, "letterSpacing") ? style.letterSpacing : "";
+        document.getElementById("playScreen").style.lineHeight = Object.hasOwn(style, "lineHeight") ? style.lineHeight : "";
+        document.getElementById("playScreen").style.textDecoration = Object.hasOwn(style, "textDecoration") ? style.textDecoration : "";
+        document.getElementById("playScreen").style.textDecorationColor = Object.hasOwn(style, "textDecorationColor") ? style.textDecorationColor : "";
+        document.getElementById("playScreen").style.textDecorationLine = Object.hasOwn(style, "textDecorationLine") ? style.textDecorationLine : "";
+        document.getElementById("playScreen").style.textDecorationStyle = Object.hasOwn(style, "textDecorationStyle") ? style.textDecorationStyle : "";
+        document.getElementById("playScreen").style.textDecorationThickness = Object.hasOwn(style, "textDecorationThickness") ? style.textDecorationThickness : "";
+        document.getElementById("playScreen").style.textShadow = Object.hasOwn(style, "textShadow") ? style.textShadow : "";
+        document.getElementById("playScreen").style.textTransform = Object.hasOwn(style, "textTransform") ? style.textTransform : "";
+        document.getElementById("playScreen").style.textUnderlineOffset = Object.hasOwn(style, "textUnderlineOffset") ? style.textUnderlineOffset : "";
+    }
 }
 
 document.getElementById("input").addEventListener("keydown", (e) => {
