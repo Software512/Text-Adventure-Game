@@ -185,7 +185,7 @@ function getScreen() {
         if (Object.hasOwn(style, "text")) {
             document.getElementById("text").style.backgroundColor = Object.hasOwn(style.text, "backgroundColor") ? style.text.backgroundColor : "";
             document.getElementById("text").style.color = Object.hasOwn(style.text, "color") ? style.text.color : "";
-            document.getElementById("text").style.fontFamily = Object.hasOwn(style.text, "fontFamily") ? style.choices.text : "";
+            document.getElementById("text").style.fontFamily = Object.hasOwn(style.text, "fontFamily") ? style.text.fontFamily : "";
             document.getElementById("text").style.fontSize = Object.hasOwn(style.text, "fontSize") ? style.text.fontSize : "";
             document.getElementById("text").style.fontStyle = Object.hasOwn(style.text, "fontStyle") ? style.text.fontStyle : "";
             document.getElementById("text").style.fontVariant = Object.hasOwn(style.text, "fontVariant") ? style.text.fontVariant : "";
