@@ -1,8 +1,8 @@
 {
     "name": "template",
-    "progress": ["screens"],
     "screens": {
         "text": "Example",
+        "header": "example",
         "options": {
             "door 1": {
                 "purpose": "open door 1",
@@ -25,14 +25,26 @@
     },
     "styles": {
         "default": {
-            "backgroundColor": "teal",
-            "color": "white",
-            "textDecorationLine": "underline"
+            "all": {
+                "backgroundColor": "teal",
+                "color": "white",
+                "textShadow": "1px 1px 2px black"
+            },
+            "text": {
+                "fontStyle": "italic"
+            }
         },
         "death": {
-            "backgroundColor": "red",
-            "color": "white",
-            "textShadow": "1px 1px 2px black"
+            "all": {
+                "backgroundColor": "red",
+                "color": "white",
+                "textDecorationLine": "underline",
+                "textDecorationStyle": "dotted",
+                "textDecorationColor": "yellow"
+            },
+            "choices": {
+                "backgroundColor": "yellow"
+            }
         }
     }
 }
