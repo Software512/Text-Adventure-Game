@@ -82,7 +82,7 @@
             padding: 1vw 0;
         }
 
-        #play {
+    .menuButton {
             width: 20vw;
             padding: 1.25vh 0;
         }
@@ -93,9 +93,6 @@
             margin: 0.25svw;
             border-radius: 1vh;
         }
-    </style>
-    <style id="normalStyle">
-
     </style>
 </head>
 
@@ -109,7 +106,9 @@
             <a id="saveLink"><button disabled="true" id="save" class="smallMenuButton">Download Save</button></a><button disabled="true" id="reset"
                 class="smallMenuButton">Reset Save</button>
         </div>
-        <button disabled="true" id="play">Play</button>
+        <button disabled="true" id="play" class="menuButton">Play</button>
+        <br>
+        <a href="docs.html" target="_blank"><button class="menuButton">Documentation For Game Creators</button></a>
     </div>
     <div id="playScreen" style="display: none;">
         <button id="quit">Quit</button>
