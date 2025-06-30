@@ -16,13 +16,62 @@
 
 <body>
     <h1>Text-Based Adventure Game Player <span style="font-style: italic;">Documentation</span></h1>
-    <h2>An explanation of the syntax</h2>
+    <h2 id="syntax">An explanation of the syntax</h2>
     <p>
-        This text-based adventure game player lets you create your own text-based adventure games. You can do this by creating a custom file in a language called JSON. <br>
-        JSON is made of objects, which start with a &quot;&lbrace;&quot; and end with a &quot;&rbrace;&quot;. Each object contains values, which follow the following format: &quot;key&quot;: value <br>
-        This value can be either another object or a string. A string is a bit of text surrounded by a quotation mark &lpar;&apos; or &quot;&rpar; on both sides. <br>
-        If the value is followed by another value in <span style="font-style: italic;">the same</span> object, it must be end with a comma like this:  &quot;key&quot;: &quot;value&quot;,
+        This text-based adventure game player lets you create your own text-based adventure games. You can do this by
+        creating a custom file in a language called JSON. <br>
+        JSON is made of objects, which start with a &quot;&lbrace;&quot; and end with a &quot;&rbrace;&quot;. Each
+        object contains properties, which follow the following format: &quot;key&quot;: value <br>
+        This value can be either another object or a string. A string is a bit of text surrounded by a quotation mark
+        &lpar;&apos; or &quot;&rpar; on both sides. <br>
+        If the property is followed by another property in <span style="font-style: italic;">the same</span> object, it
+        must be end with a comma like this: &quot;key&quot;: &quot;value&quot;,
     </p>
+    <h2 id="example">Example Game File</h2>
+    <p>
+        <!-- Hell -->
+        &lbrace;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&quot;name&quot;: &quot;template&quot;,<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&quot;screens&quot;: &lbrace;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;text&quot;: &quot;Example&quot;,<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;options&quot;: &lbrace;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;door 1&quot;: &lbrace;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;purpose&quot;:
+        &quot;open door 1&quot;,<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;text&quot;:
+        &quot;Behind door 1 is a portal leading back to the beginning.&quot;,<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;options&quot;:
+        &lbrace;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;continue&quot;:
+        &lbrace;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;purpose&quot;:
+        &quot;go through the portal&quot;,<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;goto&quot;:
+        &quot;screens&quot;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&rbrace;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&rbrace;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&rbrace;,<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;Door 2&quot;: &lbrace;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;purpose&quot;:
+        &quot;open door 2&quot;,<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;type&quot;:
+        &quot;end&quot;,<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;text&quot;:
+        &quot;There was a lion behind the door and it ate you.&quot;,<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;disableUndo&quot;:
+        true<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&rbrace;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&rbrace;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&rbrace;<br>
+        &rbrace;
+    </p>
+    <h2 id="getting-started">Getting Started</h2>
+    <a href="template.json" download="template.json">Download the template</a>
+    <p>
+        Download the template. It has all the required properties.
+        The main object must have the following properties: name and screens.
+    </p>
+    <h2 id="properties">Properties</h2>
 </body>
 
 </html>
