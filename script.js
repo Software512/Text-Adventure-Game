@@ -168,6 +168,10 @@ function getScreen() {
             document.getElementById("header").style.fontWeight = Object.hasOwn(style.header, "fontWeight") ? style.header.fontWeight : "";
             document.getElementById("header").style.letterSpacing = Object.hasOwn(style.header, "letterSpacing") ? style.header.letterSpacing : "";
             document.getElementById("header").style.lineHeight = Object.hasOwn(style.header, "lineHeight") ? style.header.lineHeight : "";
+            document.getElementById("header").style.outlineColor = Object.hasOwn( style.header, "outlineColor") ?  style.header.outlineColor : "";
+            document.getElementById("header").style.outlineOffset = Object.hasOwn( style.header, "outlineOffset") ?  style.header.outlineOffset : "";
+            document.getElementById("header").style.outlineStyle = Object.hasOwn( style.header, "outlineStyle") ?  style.header.outlineStyle : "";
+            document.getElementById("header").style.outlineWidth = Object.hasOwn( style.header, "outlineWidth") ?  style.header.outlineWidth : "";
             document.getElementById("header").style.textDecorationColor = Object.hasOwn(style.header, "textDecorationColor") ? style.header.textDecorationColor : "";
             document.getElementById("header").style.textDecorationLine = Object.hasOwn(style.header, "textDecorationLine") ? style.header.textDecorationLine : "";
             document.getElementById("header").style.textDecorationStyle = Object.hasOwn(style.header, "textDecorationStyle") ? style.header.textDecorationStyle : "";
@@ -188,6 +192,10 @@ function getScreen() {
             document.getElementById("text").style.fontWeight = Object.hasOwn(style.text, "fontWeight") ? style.text.fontWeight : "";
             document.getElementById("text").style.letterSpacing = Object.hasOwn(style.text, "letterSpacing") ? style.text.letterSpacing : "";
             document.getElementById("text").style.lineHeight = Object.hasOwn(style.text, "lineHeight") ? style.text.lineHeight : "";
+            document.getElementById("text").style.outlineColor = Object.hasOwn( style.text, "outlineColor") ?  style.text.outlineColor : "";
+            document.getElementById("text").style.outlineOffset = Object.hasOwn( style.text, "outlineOffset") ?  style.text.outlineOffset : "";
+            document.getElementById("text").style.outlineStyle = Object.hasOwn( style.text, "outlineStyle") ?  style.text.outlineStyle : "";
+            document.getElementById("text").style.outlineWidth = Object.hasOwn( style.text, "outlineWidth") ?  style.text.outlineWidth : "";
             document.getElementById("text").style.textDecorationColor = Object.hasOwn(style.text, "textDecorationColor") ? style.text.textDecorationColor : "";
             document.getElementById("text").style.textDecorationLine = Object.hasOwn(style.text, "textDecorationLine") ? style.text.textDecorationLine : "";
             document.getElementById("text").style.textDecorationStyle = Object.hasOwn(style.text, "textDecorationStyle") ? style.text.textDecorationStyle : "";
@@ -208,6 +216,10 @@ function getScreen() {
             document.getElementById("inputOptions").style.fontWeight = Object.hasOwn(style.choices, "fontWeight") ? style.choices.fontWeight : "";
             document.getElementById("inputOptions").style.letterSpacing = Object.hasOwn(style.choices, "letterSpacing") ? style.choices.letterSpacing : "";
             document.getElementById("inputOptions").style.lineHeight = Object.hasOwn(style.choices, "lineHeight") ? style.choices.lineHeight : "";
+            document.getElementById("inputOptions").style.outlineColor = Object.hasOwn( style.choices, "outlineColor") ?  style.choices.outlineColor : "";
+            document.getElementById("inputOptions").style.outlineOffset = Object.hasOwn( style.choices, "outlineOffset") ?  style.choices.outlineOffset : "";
+            document.getElementById("inputOptions").style.outlineStyle = Object.hasOwn( style.choices, "outlineStyle") ?  style.choices.outlineStyle : "";
+            document.getElementById("inputOptions").style.outlineWidth = Object.hasOwn( style.choices, "outlineWidth") ?  style.choices.outlineWidth : "";
             document.getElementById("inputOptions").style.textDecorationColor = Object.hasOwn(style.choices, "textDecorationColor") ? style.choices.textDecorationColor : "";
             document.getElementById("inputOptions").style.textDecorationLine = Object.hasOwn(style.choices, "textDecorationLine") ? style.choices.textDecorationLine : "";
             document.getElementById("inputOptions").style.textDecorationStyle = Object.hasOwn(style.choices, "textDecorationStyle") ? style.choices.textDecorationStyle : "";
