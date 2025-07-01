@@ -11,6 +11,10 @@
         body {
             font-family: sans-serif;
         }
+
+        p {
+            margin-left: 1em;
+        }
     </style>
 </head>
 
@@ -91,7 +95,8 @@
     <h4>disableUndo</h4>
     <p>
         Optional <br>
-        Disables the ability for the user to type "go back" for the entire game. Can be overridden by using this attribute in an individual screen object. <br>
+        Disables the ability for the user to type "go back" for the entire game. Can be overridden by using this
+        attribute in an individual screen object. <br>
         Value: true or false &lpar;No quotation marks&rpar;
     </p>
     <h4>styles</h4>
@@ -156,13 +161,16 @@
     <h4>disableUndo</h4>
     <p>
         Optional <br>
-        Disables the ability for the user to type "go back" for the the current screen. Overrides any disableUndo value set in the root object. <br>
+        Disables the ability for the user to type "go back" for the the current screen. Overrides any disableUndo value
+        set in the root object. <br>
         Value: true or false &lpar;No quotation marks&rpar;
     </p>
     <h4>options</h4>
     <p>
-        Required unless the &quot;type&quot; property is set to &quot;end&quot; or the &quot;goto&quot; attribute is set. <br>
-        Value: an object containing one or more screen objects objects named after what the user types in to go to that screen.
+        Required unless the &quot;type&quot; property is set to &quot;end&quot; or the &quot;goto&quot; attribute is
+        set. <br>
+        Value: an object containing one or more screen objects objects named after what the user types in to go to that
+        screen.
     </p>
     <h5>Example</h5>
     <p>
@@ -200,8 +208,56 @@
     </p>
     <h4>goto</h4>
     <p>
-        Optional <br>
-        Value: A path. For example, in the <a href="#example">example game file</a> the path for screen for door 1 is "screens.options.door 1"
+        Optional. Has no effect inside the root screen object &lpar;&quot;screen&quot;&rpar;. <br>
+        Value: A path. For example, in the <a href="#example">example game file</a> the path for screen for door 1 is
+        &quot;screens.options.door 1&quot;
+    </p>
+    <h3>Styles</h3>
+    <h4>Example</h4>
+    <p>
+        <!-- Hell part 3 -->
+        &lbrace;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;...<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&quot;styles&quot;: &lbrace;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;default&quot;: &lbrace;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;all&quot;: &lbrace;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;backgroundColor&quot;:
+        &quot;teal&quot;,<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;color&quot;:
+        &quot;white&quot;,<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;textShadow&quot;:
+        &quot;1px 1px 2px black&quot;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&rbrace;,<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;text&quot;: &lbrace;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;fontStyle&quot;:
+        &quot;italic&quot;,<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;outlineStyle&quot;:
+        &quot;dashed&quot;,<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;fontFamily&quot;:
+        &quot;cursive&quot;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&rbrace;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&rbrace;,<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;death&quot;: &lbrace;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;all&quot;: &lbrace;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;backgroundColor&quot;:
+        &quot;red&quot;,<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;color&quot;:
+        &quot;white&quot;,<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;textDecorationLine&quot;:
+        &quot;underline&quot;,<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;textDecorationStyle&quot;:
+        &quot;dotted&quot;,<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;textDecorationColor&quot;:
+        &quot;yellow&quot;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&rbrace;,<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;choices&quot;: &lbrace;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;backgroundColor&quot;:
+        &quot;yellow&quot;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&rbrace;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&rbrace;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&rbrace;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;...<br>
+        &rbrace;
     </p>
 </body>
 
