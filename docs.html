@@ -20,6 +20,7 @@
     <p>
         This text-based adventure game player lets you create your own text-based adventure games. You can do this by
         creating a custom file in a language called JSON. <br>
+        It may look complicated, but is very straightforward once you learn the format. <br>
         JSON is made of objects, which start with a &quot;&lbrace;&quot; and end with a &quot;&rbrace;&quot;. Each
         object contains properties, which follow the following format: &quot;key&quot;: value <br>
         This value can be either another object or a string. A string is a bit of text surrounded by a quotation mark
@@ -58,8 +59,6 @@
         &quot;end&quot;,<br>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;text&quot;:
         &quot;There was a lion behind the door and it ate you.&quot;,<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;disableUndo&quot;:
-        true<br>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&rbrace;<br>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&rbrace;<br>
         &nbsp;&nbsp;&nbsp;&nbsp;&rbrace;<br>
@@ -68,10 +67,142 @@
     <h2 id="getting-started">Getting Started</h2>
     <a href="template.json" download="template.json">Download the template</a>
     <p>
-        Download the template. It has all the required properties.
+        Download the template. It has all the required properties. <br>
+        Open it in a text or code editor. &lpar;Notepad is a text editor.&rpar; <br>
+        If the template shows as &quot;template.json&quot; in your file manager, rename it to &lt;your game's
+        name&gt;.json, or just the name of your game if the template shows as just &quot;template&quot; in your file
+        manager. <br>
         The main object must have the following properties: name and screens.
+        Set the property "name" to the name of your game.
     </p>
     <h2 id="properties">Properties</h2>
+    <h3>Properties of Main File</h3>
+    <h4>name</h4>
+    <p>
+        Required <br>
+        Value: a string containing the name of the game
+    </p>
+    <h4>screens</h4>
+    <p>
+        Required <br>
+        Contains all the screens. <br>
+        Value: a screen object
+    </p>
+    <h4>disableUndo</h4>
+    <p>
+        Optional <br>
+        Disables the ability for the user to type "go back" for the entire game. Can be overridden by using this attribute in an individual screen object. <br>
+        Value: true or false &lpar;No quotation marks&rpar;
+    </p>
+    <h4>styles</h4>
+    <p>
+        Optional <br>
+        Defines the style themes that can be used for adding styling to your game. <br>
+        Value: a style object
+    </p>
+    <h3>Screen Objects</h3>
+    <h4 id="example">Example</h4>
+    <p>
+        <!-- Hell part 2 -->
+        &lbrace;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;... <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&quot;screens&quot;: &lbrace;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;text&quot;: &quot;Example&quot;,<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;options&quot;: &lbrace;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;door 1&quot;: &lbrace;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;purpose&quot;:
+        &quot;open door 1&quot;,<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;text&quot;:
+        &quot;Behind door 1 is a portal leading back to the beginning.&quot;,<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;options&quot;:
+        &lbrace;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;continue&quot;:
+        &lbrace;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;purpose&quot;:
+        &quot;go through the portal&quot;,<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;goto&quot;:
+        &quot;screens&quot;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&rbrace;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&rbrace;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&rbrace;,<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;Door 2&quot;: &lbrace;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;purpose&quot;:
+        &quot;open door 2&quot;,<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;type&quot;:
+        &quot;end&quot;,<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;text&quot;:
+        &quot;There was a lion behind the door and it ate you.&quot;,<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&rbrace;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&rbrace;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&rbrace;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;... <br>
+        &rbrace;
+    </p>
+    <h4>text</h4>
+    <p>
+        Required unless the goto attribute is set <br>
+        Value: a string containing the text shown to the user
+    </p>
+    <h4>header</h4>
+    <p>
+        Optional <br>
+        Value: a string containing the text shown to the user in the header. Header is not shown if blank.
+    </p>
+    <h4>purpose</h4>
+    <p>
+        Required except in the root screen object &lpar;&quot;screen&quot;&rpar;, where it has no effect <br>
+        Value: a string containing what will happen if the user chooses this path
+    </p>
+    <h4>disableUndo</h4>
+    <p>
+        Optional <br>
+        Disables the ability for the user to type "go back" for the the current screen. Overrides any disableUndo value set in the root object. <br>
+        Value: true or false &lpar;No quotation marks&rpar;
+    </p>
+    <h4>options</h4>
+    <p>
+        Required unless the &quot;type&quot; property is set to &quot;end&quot; or the &quot;goto&quot; attribute is set. <br>
+        Value: an object containing one or more screen objects objects named after what the user types in to go to that screen.
+    </p>
+    <h5>Example</h5>
+    <p>
+        <!-- Hell part 2 -->
+        &lbrace;<br>
+        ... <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&quot;options&quot;: &lbrace;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;door 1&quot;: &lbrace;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;purpose&quot;:
+        &quot;open door 1&quot;,<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;text&quot;:
+        &quot;Behind door 1 is a portal leading back to the beginning.&quot;,<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;options&quot;:
+        &lbrace;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;continue&quot;:
+        &lbrace;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;purpose&quot;:
+        &quot;go through the portal&quot;,<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;goto&quot;:
+        &quot;screens&quot;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&rbrace;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&rbrace;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&rbrace;,<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;Door 2&quot;: &lbrace;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;purpose&quot;:
+        &quot;open door 2&quot;,<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;type&quot;:
+        &quot;end&quot;,<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;text&quot;:
+        &quot;There was a lion behind the door and it ate you.&quot;,<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&rbrace;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&rbrace;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;... <br>
+        &rbrace;
+    </p>
+    <h4>goto</h4>
+    <p>
+        Optional <br>
+        Value: A path. For example, in the <a href="#example">example game file</a> the path for screen for door 1 is "screens.options.door 1"
+    </p>
 </body>
 
 </html>
