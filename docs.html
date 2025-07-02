@@ -15,6 +15,10 @@
         p {
             margin-left: 1em;
         }
+
+        h5 {
+            margin-left: 0.5em;
+        }
     </style>
 </head>
 
@@ -72,14 +76,14 @@
     <a href="template.json" download="template.json">Download the template</a>
     <p>
         Download the template. It has all the required properties. <br>
-        Open it in a text or code editor. &lpar;Notepad is a text editor.&rpar; <br>
         If the template shows as &quot;template.json&quot; in your file manager, rename it to &lt;your game's
         name&gt;.json, or just the name of your game if the template shows as just &quot;template&quot; in your file
         manager. <br>
-        The main object must have the following properties: name and screens.
+        Open it in a text or code editor. &lpar;Notepad is a text editor.&rpar; <br>
+        The main object must have the following properties: name and screens. <br>
         Set the property "name" to the name of your game.
     </p>
-    <h2 id="properties">Properties</h2>
+    <h2 id="properties">Properties and Usage</h2>
     <h3>Properties of Main File</h3>
     <h4>name</h4>
     <p>
@@ -102,7 +106,7 @@
     <h4>styles</h4>
     <p>
         Optional <br>
-        Defines the style themes that can be used for adding styling to your game. <br>
+        Defines the style themes that can be used for adding styling to your game. See <a href="#styles">the section on styling</a>.<br>
         Value: a style object
     </p>
     <h3>Screen Objects</h3>
@@ -139,7 +143,7 @@
         &quot;There was a lion behind the door and it ate you.&quot;,<br>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&rbrace;<br>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&rbrace;<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&rbrace;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&rbrace;,<br>
         &nbsp;&nbsp;&nbsp;&nbsp;... <br>
         &rbrace;
     </p>
@@ -174,7 +178,7 @@
     </p>
     <h5>Example</h5>
     <p>
-        <!-- Hell part 2 -->
+        <!-- Hell part 3 -->
         &lbrace;<br>
         ... <br>
         &nbsp;&nbsp;&nbsp;&nbsp;&quot;options&quot;: &lbrace;<br>
@@ -202,9 +206,14 @@
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;text&quot;:
         &quot;There was a lion behind the door and it ate you.&quot;,<br>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&rbrace;<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&rbrace;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&rbrace;,<br>
         &nbsp;&nbsp;&nbsp;&nbsp;... <br>
         &rbrace;
+    </p>
+    <h4>style</h4>
+    <p>
+        Optional <br>
+        Value: the name of a valid style object. See <a href="#styles">the section on styling</a>.
     </p>
     <h4>goto</h4>
     <p>
@@ -212,10 +221,10 @@
         Value: A path. For example, in the <a href="#example">example game file</a> the path for screen for door 1 is
         &quot;screens.options.door 1&quot;
     </p>
-    <h3>Styles</h3>
+    <h3 id="styles">Styles</h3>
     <h4>Example</h4>
     <p>
-        <!-- Hell part 3 -->
+        <!-- Hell part 4 -->
         &lbrace;<br>
         &nbsp;&nbsp;&nbsp;&nbsp;...<br>
         &nbsp;&nbsp;&nbsp;&nbsp;&quot;styles&quot;: &lbrace;<br>
@@ -255,9 +264,121 @@
         &quot;yellow&quot;<br>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&rbrace;<br>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&rbrace;<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&rbrace;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&rbrace;,<br>
         &nbsp;&nbsp;&nbsp;&nbsp;...<br>
         &rbrace;
+    </p>
+    <h4>Styling Basics</h4>
+    <p>
+        Inside of the main object of the game file is a &quot;styles&quot; property. This is an object containing style objects. <br>
+        Style objects can contain 4 objects: &quot;all&quot;, &quot;header&quot;, &quot;text&quot;, and &quot;choices&quot;. <br>
+        These contain the styles for each section of the screen. Styles are inherited from the &quot;all&quot; property if present, but can be overridden by setting the same property with the same value within the desired part's styling. <br>
+        Style objects are given a name, and that name is used in the &quot;style&quot; property of a screen object. For example, the death color scheme above would be set by putting &quot;style&quot;: &quot;death&quot; in a screen object.
+        To remove an inherited value, set it to &quot;&quot;.
+    </p>
+    <h5 id="color">Color data type</h5>
+    <p>
+        This player uses CSS colors. it can be a hex code &lpar;#XXXXXX&rpar;, an RGB color code &lpar;rgb&lpar;&lt;r&gt;, &lt;g&gt;, &lt;b&gt;&rpar;&rpar;, or more. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">this page on CSS colors</a> for more details.
+    </p>
+    <h4>backGroundColor</h4>
+    <p>
+        A style property used to change the background color. <br>
+        Value: <a href="#color">A color</a>
+    </p>
+    <h4>color</h4>
+    <p>
+        A style property used to change the text color. <br>
+        Value: <a href="#color">A color</a>
+    </p>
+    <h4>fontFamily</h4>
+    <p>
+        A style property used to change the font type. <br>
+        Value: A font. This is a comma seperated list of fonts. Some available fonts are serif, sans-serif, monospace, cursive, or fantasy. You can also choose fonts available on the device. A valid value could be &quot;Comic Sans MS, cursive&quot; or &quot;serif&quot;. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-family" target="_blank" rel="noopener">this page on CSS font families</a> for more details.
+    </p>
+    <h4>fontSize</h4>
+    <p>
+        A style property used to change the font size. <br>
+        Value: A length, or another type listed in the following link. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-size" target="_blank" rel="noopener">this page on font size</a> for more details.
+    </p>
+    <h4>fontStyle</h4>
+    <p>
+        A style property used to change if a font is italicized. <br>
+        Value: &quot;normal&quot; or &quot;italic&quot;
+    </p>
+    <h4>fontVarient</h4>
+    <p>
+        A style property that does something. <br>
+        See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-size" target="_blank" rel="noopener">this page on the font varient CSS property</a>.
+    </p>
+    <h4>fontWeight</h4>
+    <p>
+        A style property that controls the boldness of a font. <br>
+        Value: &quot;normal&quot;, &quot;bold&quot;, a number 1-1000, &quot;lighter&quot;, or &quot;bolder&quot;. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight" target="_blank" rel="noopener">this page on the font weight CSS property</a>.
+    </p>
+    <h4>letterSpacing</h4>
+    <p>
+        A style property that controls the space between letters. <br>
+        Value: &quot;normal&quot;, or a length. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/length" target="_blank" rel="noopener">this page on CSS length values</a>.
+    </p>
+    <h4>lineHeight</h4>
+    <p>
+        A style property that controls the height of a line of text. <br>
+        Value: &quot;normal&quot;, a unitless number, a percentage, or a length. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/length" target="_blank" rel="noopener">this page on CSS length values</a>.
+    </p>
+    <h4>outlineColor</h4>
+    <p>
+        A style property that controls the color of the outline. <br>
+        Value: <a href="#color">A color</a>
+    </p>
+    <h4>outlineOffset</h4>
+    <p>
+        A style property that controls how far away from the edge the outline is. Can be used with a negative length to make more of the outline visible. <br>
+        Value: A length. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/length" target="_blank" rel="noopener">this page on CSS length values</a>.
+    </p>
+    <h4>outlineStyle</h4>
+    <p>
+        A style property that controls the style of the outline. <br>
+        Values: &quot;none&quot;, &quot;dotted&quot;, &quot;dashed&quot;, &quot;solid&quot;, &quot;double&quot;, &quot;groove&quot;, &quot;ridge&quot;, &quot;inset&quot;, or &quot;outset&quot;.
+    </p>
+    <h4>outlineWidth</h4>
+    <p>
+        A style property that controls how thick the outline is. <br>
+        Value: &quot;thin&quot;, &quot;medium&quot;, &quot;thick&quot;, or a length. See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/length" target="_blank" rel="noopener">this page on CSS length values</a>.
+    </p>
+    <h4>textDecorationColor</h4>
+    <p>
+        A style property that controls the color of the text's line such as an underline. <br>
+        Value: <a href="#color">A color</a>
+    </p>
+    <h4>textDecorationLine</h4>
+    <p>
+        A style property that controls the type of line used for text decoration. <br>
+        Value: &quot;none&quot;, &quot;underline&quot;, &quot;overline&quot;, &quot;line-through&quot;, &quot;blink&quot;, &quot;spelling-error&quot;, or &quot;grammar-error&quot;.
+    </p>
+    <h4>textDecorationStyle</h4>
+    <p>
+        A style property that controls the style of the text decoration line. <br>
+        Value: &quot;solid&quot;, &quot;double&quot;, &quot;dotted&quot;, &quot;dashed&quot;, or &quot;wavy&quot;.
+    </p>
+    <h4>textDecorationThickness</h4>
+    <p>
+        A style property that controls the thickness of the text decoration line. <br>
+        Value: See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/text-decoration-thickness" target="_blank" rel="noopener">this page about textDecorationThickness</a>
+    </p>
+    <h4>textUnderlineOffset</h4>
+    <p>
+        A style property that controls how far away from the text the text decoration is. <br>
+        Value: &quot;auto&quot; or length.See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/length" target="_blank" rel="noopener">this page on CSS length values</a>.
+    </p>
+    <h4>textShadow</h4>
+    <p>
+        A style property that adds a shadow to the text. <br>
+        Value: See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/text-shadow" target="_blank" rel="noopener">this page about textShadow</a>
+    </p>
+    <h4>textTransform</h4>
+    <p>
+        A style property that controls the capitalization of the text. <br>
+        Value: &quot;none&quot;, &quot;capitalize&quot;, &quot;uppercase&quot;, or &quot;lowercase&quot;.
     </p>
 </body>
 
