@@ -109,7 +109,9 @@ document.body.addEventListener("input", (e) => {
     if (e.target.id.endsWith(".descriptionInput")) {
         if (!Object.hasOwn(getValueFromPath(e.target.parentElement.parentElement.id.replace(/\.[^.]*$/, "")).options, e.target.value)) {
             Object.defineProperty(getValueFromPath(e.target.parentElement.parentElement.id.replace(/\.[^.]*$/, "")).options, e.target.value, {
-                value: getValueFromPath(e.target.parentElement.parentElement.id)
+                value: getValueFromPath(e.target.parentElement.parentElement.id),
+                configurable: true,
+                enumerable: true,
             });
             Reflect.deleteProperty(getValueFromPath(e.target.parentElement.parentElement.id.replace(/\.[^.]*$/, "")).options, e.target.parentElement.parentElement.id.split(".")[e.target.parentElement.parentElement.id.split(".").length - 1]);
             e.target.parentElement.parentElement.id = e.target.parentElement.parentElement.id.replace(/\.[^.]*$/, "") + "." + e.target.value;
