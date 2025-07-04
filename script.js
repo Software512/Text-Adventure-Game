@@ -72,7 +72,7 @@ function getValueFromPath(path) {
         }
         return object;
     } catch {
-        alert("The game tried to access non-existent path in game file " + path + ".");
+        error("The game tried to access non-existent path in game file " + path + ".");
     }
 }
 

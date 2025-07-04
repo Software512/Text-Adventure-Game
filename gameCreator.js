@@ -25,29 +25,45 @@ var gameFile = {
     }
 }
 
-document.body.appendChild(getScreenObject(gameFile.screens, "screens"))
+document.body.appendChild(getScreenObject(gameFile.screens, "screens", "screens"))
 
-function getScreenObject(object, name) {
-    let newElement = document.createElement("details");
+function getScreenObject(object, name, currentpath) {
+    const newElement = document.createElement("details");
     newElement.setAttribute("open", "");
-    newElement.id = name;
+    newElement.id = currentpath;
     const description = document.createElement("summary");
-    description.appendChild(document.createTextNode(name));
-    newElement.appendChild(description);
-    let goesto = document.createElement("input");
+    if (currentpath != "screens") {
+        const descriptionInput = document.createElement("input");
+        descriptionInput.id = currentpath + ".descriptionInput";
+        descriptionInput.value = currentpath.split(".").at(-1);
+        description.appendChild(descriptionInput);
+        newElement.appendChild(description);
+        let purpose = document.createElement("input");
+        purpose.value = object.purpose;
+        purpose.id = currentpath + ".purpose";
+        newElement.appendChild(purpose);
+    } else {
+        description.appendChild(document.createTextNode("screens"));
+        newElement.appendChild(description);
+    }
+    const goesto = document.createElement("input");
     goesto.setAttribute("type", "checkbox");
+    goesto.id = currentpath + ".goesto";
     if (!Object.hasOwn(object, "goto")) {
         newElement.appendChild(goesto);
+        let header = document.createElement("input");
+        header.id = currentpath + ".header";
+        newElement.appendChild(header);
         if (Object.hasOwn(object, "header")) {
-            let header = document.createElement("input");
             header.value = object.header;
-            newElement.appendChild(header);
         }
         let text = document.createElement("input");
         text.value = object.text;
+        text.id = currentpath + ".text";
         newElement.appendChild(text);
         let type = document.createElement("input");
         type.setAttribute("type", "checkbox");
+        type.id = currentpath + ".type";
         if (object.type == "end") {
             type.setAttribute("checked", "checked");
             newElement.appendChild(type);
@@ -60,8 +76,7 @@ function getScreenObject(object, name) {
             options.appendChild(optionsName);
             newElement.appendChild(options);
             for (childObject in object.options) {
-
-                options.appendChild(getScreenObject(Object.getOwnPropertyDescriptor(object.options, childObject).value, childObject));
+                options.appendChild(getScreenObject(Object.getOwnPropertyDescriptor(object.options, childObject).value, childObject, currentpath + "." + childObject));
             }
         }
     } else {
@@ -69,10 +84,49 @@ function getScreenObject(object, name) {
         newElement.appendChild(goesto);
         let goto = document.createElement("input");
         goto.value = object.goto;
+        goto.id = currentpath + ".goto";
         newElement.appendChild(goto);
     }
-
-
-
     return newElement;
+}
+
+document.body.addEventListener("input", (e) => {
+    if (e.target.id == "name") {
+        gameFile.name = e.target.value;
+    }
+    if (e.target.id.endsWith(".header")) {
+        getValueFromPath(e.target.id.slice(0, -7)).header = e.target.value;
+    }
+    if (e.target.id.endsWith(".text")) {
+        getValueFromPath(e.target.id.slice(0, -5)).text = e.target.value;
+    }
+    if (e.target.id.endsWith(".purpose")) {
+        getValueFromPath(e.target.id.slice(0, -8)).purpose = e.target.value;
+    }
+    if (e.target.id.endsWith(".goto")) {
+        getValueFromPath(e.target.id.slice(0, -5)).goto = e.target.value;
+    }
+    if (e.target.id.endsWith(".descriptionInput")) {
+        if (!Object.hasOwn(getValueFromPath(e.target.parentElement.parentElement.id.replace(/\.[^.]*$/, "")).options, e.target.value)) {
+            Object.defineProperty(getValueFromPath(e.target.parentElement.parentElement.id.replace(/\.[^.]*$/, "")).options, e.target.value, {
+                value: getValueFromPath(e.target.parentElement.parentElement.id)
+            });
+            Reflect.deleteProperty(getValueFromPath(e.target.parentElement.parentElement.id.replace(/\.[^.]*$/, "")).options, e.target.parentElement.parentElement.id.split(".")[e.target.parentElement.parentElement.id.split(".").length - 1]);
+            e.target.parentElement.parentElement.id = e.target.parentElement.parentElement.id.replace(/\.[^.]*$/, "") + "." + e.target.value;
+        }
+    }
+});
+
+function getValueFromPath(path) {
+    let object = gameFile;
+    try {
+        let i = 0;
+        for (const property of path.split(".")) {
+            object = Object.getOwnPropertyDescriptor(i % 2 == 0 ? object : object.options, property).value;
+            i++;
+        }
+        return object;
+    } catch {
+        alert("The editor tried to access non-existent path in game file " + path + ".");
+    }
 }
