@@ -114,7 +114,13 @@ document.body.addEventListener("input", (e) => {
                 enumerable: true,
             });
             Reflect.deleteProperty(getValueFromPath(e.target.parentElement.parentElement.id.replace(/\.[^.]*$/, "")).options, e.target.parentElement.parentElement.id.split(".")[e.target.parentElement.parentElement.id.split(".").length - 1]);
-            e.target.parentElement.parentElement.id = e.target.parentElement.parentElement.id.replace(/\.[^.]*$/, "") + "." + e.target.value;
+            var originalID = e.target.parentElement.parentElement.id;
+            for (element of document.querySelectorAll("#" + CSS.escape(originalID) + " *, #" + CSS.escape(originalID))) {
+                if (element.id) {
+                    element.id = element.id.replace(originalID, originalID.replace(/\.[^.]*$/, "") + "." + e.target.value);
+                }
+            }
+            
         }
     }
 });
@@ -124,7 +130,7 @@ function getValueFromPath(path) {
     try {
         let i = 0;
         for (const property of path.split(".")) {
-            object = Object.getOwnPropertyDescriptor(i % 2 == 0 ? object : object.options, property).value;
+            object = Object.getOwnPropertyDescriptor(i > 0 ? object.options : object, property).value;
             i++;
         }
         return object;
