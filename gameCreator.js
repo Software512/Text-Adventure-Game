@@ -32,6 +32,8 @@ function getScreenObject(object, name, currentpath) {
     newElement.setAttribute("open", "");
     newElement.id = currentpath;
     const description = document.createElement("summary");
+    let goestoLabel;
+    let goesto;
     if (currentpath != "screens") {
         const descriptionInput = document.createElement("input");
         descriptionInput.id = currentpath + ".descriptionInput";
@@ -48,21 +50,24 @@ function getScreenObject(object, name, currentpath) {
         purpose.id = currentpath + ".purpose";
         newElement.appendChild(purpose);
         newElement.appendChild(document.createElement("br"));
+        goestoLabel = document.createElement("label");
+        goestoLabel.for = currentpath + ".goesto";
+        goestoLabel.textContent = "Option goes to other screen: ";
+        goestoLabel.id = currentpath + ".goestoLabel";
+        newElement.appendChild(goestoLabel);
+        goesto = document.createElement("input");
+        goesto.setAttribute("type", "checkbox");
+        goesto.id = currentpath + ".goesto";
     } else {
         description.appendChild(document.createTextNode("screens"));
         newElement.appendChild(description);
     }
-    let goestoLabel = document.createElement("label");
-    goestoLabel.for = currentpath + ".goesto";
-    goestoLabel.textContent = "Option goes to other screen: ";
-    goestoLabel.id = currentpath + ".goestoLabel";
-    newElement.appendChild(goestoLabel);
-    const goesto = document.createElement("input");
-    goesto.setAttribute("type", "checkbox");
-    goesto.id = currentpath + ".goesto";
+
     if (!Object.hasOwn(object, "goto")) {
-        newElement.appendChild(goesto);
-        newElement.appendChild(document.createElement("br"));
+        if (currentpath != "screens") {
+            newElement.appendChild(goesto);
+            newElement.appendChild(document.createElement("br"));
+        }
         let headerLabel = document.createElement("label");
         headerLabel.for = currentpath + ".header";
         headerLabel.textContent = "Header: ";
@@ -80,7 +85,7 @@ function getScreenObject(object, name, currentpath) {
         textLabel.textContent = "Text: ";
         textLabel.id = currentpath + ".textLabel";
         newElement.appendChild(textLabel);
-        let text = document.createElement("input");
+        let text = document.createElement("textarea");
         text.value = object.text;
         text.id = currentpath + ".text";
         newElement.appendChild(text);
@@ -108,7 +113,7 @@ function getScreenObject(object, name, currentpath) {
                 options.appendChild(getScreenObject(Object.getOwnPropertyDescriptor(object.options, childObject).value, childObject, currentpath + "." + childObject));
             }
         }
-    } else {
+    } else if (currentpath != "screens") {
         goesto.setAttribute("checked", "checked");
         newElement.appendChild(goesto);
         newElement.appendChild(document.createElement("br"));
@@ -137,6 +142,19 @@ document.body.addEventListener("input", (e) => {
     }
     if (e.target.id.endsWith(".purpose")) {
         getValueFromPath(e.target.id.slice(0, -8)).purpose = e.target.value;
+    }
+    if (e.target.id.endsWith(".goesto")) {
+        console.log(e.target)
+        if (e.target.checked) {
+            getValueFromPath(e.target.id.slice(0, -7)).goto = "screens";
+            screens.remove();
+            document.body.appendChild(getScreenObject(gameFile.screens, "screens", "screens"))
+        } else {
+            Reflect.deleteProperty(getValueFromPath(e.target.id.slice(0, -7)), "goto");
+            screens.remove();
+            document.body.appendChild(getScreenObject(gameFile.screens, "screens", "screens"))
+        }
+
     }
     if (e.target.id.endsWith(".goto")) {
         getValueFromPath(e.target.id.slice(0, -5)).goto = e.target.value;
