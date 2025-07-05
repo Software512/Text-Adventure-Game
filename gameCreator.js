@@ -38,29 +38,58 @@ function getScreenObject(object, name, currentpath) {
         descriptionInput.value = currentpath.split(".").at(-1);
         description.appendChild(descriptionInput);
         newElement.appendChild(description);
+        let purposeLabel = document.createElement("label");
+        purposeLabel.for = currentpath + ".purpose";
+        purposeLabel.textContent = "Purpose: ";
+        purposeLabel.id = currentpath + ".purposeLabel";
+        newElement.appendChild(purposeLabel);
         let purpose = document.createElement("input");
         purpose.value = object.purpose;
         purpose.id = currentpath + ".purpose";
         newElement.appendChild(purpose);
+        newElement.appendChild(document.createElement("br"));
     } else {
         description.appendChild(document.createTextNode("screens"));
         newElement.appendChild(description);
     }
+    let goestoLabel = document.createElement("label");
+    goestoLabel.for = currentpath + ".goesto";
+    goestoLabel.textContent = "Option goes to other screen: ";
+    goestoLabel.id = currentpath + ".goestoLabel";
+    newElement.appendChild(goestoLabel);
     const goesto = document.createElement("input");
     goesto.setAttribute("type", "checkbox");
     goesto.id = currentpath + ".goesto";
     if (!Object.hasOwn(object, "goto")) {
         newElement.appendChild(goesto);
+        newElement.appendChild(document.createElement("br"));
+        let headerLabel = document.createElement("label");
+        headerLabel.for = currentpath + ".header";
+        headerLabel.textContent = "Header: ";
+        headerLabel.id = currentpath + ".headerLabel";
+        newElement.appendChild(headerLabel);
         let header = document.createElement("input");
         header.id = currentpath + ".header";
         newElement.appendChild(header);
         if (Object.hasOwn(object, "header")) {
             header.value = object.header;
         }
+        newElement.appendChild(document.createElement("br"));
+        let textLabel = document.createElement("label");
+        textLabel.for = currentpath + ".text";
+        textLabel.textContent = "Text: ";
+        textLabel.id = currentpath + ".textLabel";
+        newElement.appendChild(textLabel);
         let text = document.createElement("input");
         text.value = object.text;
         text.id = currentpath + ".text";
         newElement.appendChild(text);
+        newElement.appendChild(document.createElement("br"));
+        let typeLabel = document.createElement("label");
+        typeLabel.for = currentpath + ".type";
+        typeLabel.textContent = "Is end screen: ";
+        typeLabel.id = currentpath + ".typeLabel";
+        newElement.appendChild(typeLabel);
         let type = document.createElement("input");
         type.setAttribute("type", "checkbox");
         type.id = currentpath + ".type";
@@ -82,6 +111,12 @@ function getScreenObject(object, name, currentpath) {
     } else {
         goesto.setAttribute("checked", "checked");
         newElement.appendChild(goesto);
+        newElement.appendChild(document.createElement("br"));
+        let gotoLabel = document.createElement("label");
+        gotoLabel.for = currentpath + ".goto";
+        gotoLabel.textContent = "Go to: ";
+        gotoLabel.id = currentpath + ".gotoLabel";
+        newElement.appendChild(gotoLabel);
         let goto = document.createElement("input");
         goto.value = object.goto;
         goto.id = currentpath + ".goto";
@@ -120,7 +155,7 @@ document.body.addEventListener("input", (e) => {
                     element.id = element.id.replace(originalID, originalID.replace(/\.[^.]*$/, "") + "." + e.target.value);
                 }
             }
-            
+
         }
     }
 });
