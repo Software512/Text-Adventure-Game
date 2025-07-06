@@ -1,5 +1,5 @@
 var gameFile = {
-    "name": "template",
+    "name": "New Game",
     "screens": {
         "text": "Example",
         "header": "example",
@@ -25,7 +25,7 @@ var gameFile = {
     }
 }
 
-document.body.appendChild(getScreenObject(gameFile.screens, "screens", "screens"))
+document.body.appendChild(getScreenObject(gameFile.screens, "screens", "screens"));
 
 function getScreenObject(object, name, currentpath) {
     const newElement = document.createElement("details");
@@ -39,6 +39,10 @@ function getScreenObject(object, name, currentpath) {
         descriptionInput.id = currentpath + ".descriptionInput";
         descriptionInput.value = currentpath.split(".").at(-1);
         description.appendChild(descriptionInput);
+        const deleteButton = document.createElement("button");
+        deleteButton.id = currentpath + ".deleteButton";
+        deleteButton.appendChild(document.createTextNode("X"));
+        description.appendChild(deleteButton);
         newElement.appendChild(description);
         let purposeLabel = document.createElement("label");
         purposeLabel.for = currentpath + ".purpose";
@@ -106,7 +110,11 @@ function getScreenObject(object, name, currentpath) {
             const options = document.createElement("details");
             options.setAttribute("open", "");
             const optionsName = document.createElement("summary");
-            optionsName.appendChild(document.createTextNode("options"));
+            optionsName.appendChild(document.createTextNode("options "));
+            const addOption = document.createElement("button");
+            addOption.id = currentpath + ".addOption";
+            addOption.appendChild(document.createTextNode("+"));
+            optionsName.appendChild(addOption);
             options.appendChild(optionsName);
             newElement.appendChild(options);
             for (childObject in object.options) {
@@ -132,19 +140,18 @@ function getScreenObject(object, name, currentpath) {
 
 document.body.addEventListener("input", (e) => {
     if (e.target.id == "name") {
-        gameFile.name = e.target.value;
-    }
-    if (e.target.id.endsWith(".header")) {
+        if (e.target.value) {
+            gameFile.name = e.target.value;
+        } else {
+            gameFile.name = "New Game";
+        }
+    } else if (e.target.id.endsWith(".header")) {
         getValueFromPath(e.target.id.slice(0, -7)).header = e.target.value;
-    }
-    if (e.target.id.endsWith(".text")) {
+    } else if (e.target.id.endsWith(".text")) {
         getValueFromPath(e.target.id.slice(0, -5)).text = e.target.value;
-    }
-    if (e.target.id.endsWith(".purpose")) {
+    } else if (e.target.id.endsWith(".purpose")) {
         getValueFromPath(e.target.id.slice(0, -8)).purpose = e.target.value;
-    }
-    if (e.target.id.endsWith(".goesto")) {
-        console.log(e.target)
+    } else if (e.target.id.endsWith(".goesto")) {
         if (e.target.checked) {
             getValueFromPath(e.target.id.slice(0, -7)).goto = "screens";
             screens.remove();
@@ -154,12 +161,19 @@ document.body.addEventListener("input", (e) => {
             screens.remove();
             document.body.appendChild(getScreenObject(gameFile.screens, "screens", "screens"))
         }
-
-    }
-    if (e.target.id.endsWith(".goto")) {
+    } else if (e.target.id.endsWith(".type")) {
+        if (e.target.checked) {
+            getValueFromPath(e.target.id.slice(0, -5)).type = "end";
+            screens.remove();
+            document.body.appendChild(getScreenObject(gameFile.screens, "screens", "screens"))
+        } else {
+            Reflect.deleteProperty(getValueFromPath(e.target.id.slice(0, -5)), "type");
+            screens.remove();
+            document.body.appendChild(getScreenObject(gameFile.screens, "screens", "screens"))
+        }
+    } else if (e.target.id.endsWith(".goto")) {
         getValueFromPath(e.target.id.slice(0, -5)).goto = e.target.value;
-    }
-    if (e.target.id.endsWith(".descriptionInput")) {
+    } else if (e.target.id.endsWith(".descriptionInput")) {
         if (!Object.hasOwn(getValueFromPath(e.target.parentElement.parentElement.id.replace(/\.[^.]*$/, "")).options, e.target.value)) {
             Object.defineProperty(getValueFromPath(e.target.parentElement.parentElement.id.replace(/\.[^.]*$/, "")).options, e.target.value, {
                 value: getValueFromPath(e.target.parentElement.parentElement.id),
@@ -173,8 +187,32 @@ document.body.addEventListener("input", (e) => {
                     element.id = element.id.replace(originalID, originalID.replace(/\.[^.]*$/, "") + "." + e.target.value);
                 }
             }
-
         }
+    }
+});
+
+document.body.addEventListener("click", (e) => {
+    if (e.target.id.endsWith(".deleteButton")) {
+        Reflect.deleteProperty(getValueFromPath(e.target.parentElement.parentElement.id.replace(/\.[^.]*$/, "")).options, e.target.parentElement.parentElement.id.split(".")[e.target.parentElement.parentElement.id.split(".").length - 1]);
+        screens.remove();
+        document.body.appendChild(getScreenObject(gameFile.screens, "screens", "screens"));
+    } else if (e.target.id.endsWith(".addOption")) {
+        console.log(e.target.parentElement.parentElement.parentElement.id)
+        let optionName = "newOption";
+        let i = 1;
+        while (Object.hasOwn(getValueFromPath(e.target.parentElement.parentElement.parentElement.id).options, optionName + i)) {
+            if (Object.hasOwn(getValueFromPath(e.target.parentElement.parentElement.parentElement.id).options, optionName + i)) {
+                i++
+            }
+        }
+        optionName += i;
+        Object.defineProperty(getValueFromPath(e.target.parentElement.parentElement.parentElement.id).options, optionName, {
+            value: { text: "" , options: {}},
+            configurable: true,
+            enumerable: true,
+        });
+        screens.remove();
+        document.body.appendChild(getScreenObject(gameFile.screens, "screens", "screens"));
     }
 });
 
