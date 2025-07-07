@@ -28,9 +28,10 @@ var gameFile = {
 document.body.appendChild(getScreenObject(gameFile.screens, "screens", "screens"));
 
 function getScreenObject(object, name, currentpath) {
-    const newElement = document.createElement("details");
-    newElement.setAttribute("open", "");
-    newElement.id = currentpath;
+    const detailsElement = document.createElement("details")
+    detailsElement.setAttribute("open", "");
+    detailsElement.id = currentpath;
+    const newElement = document.createElement("div");
     const description = document.createElement("summary");
     let goestoLabel;
     let goesto;
@@ -43,7 +44,7 @@ function getScreenObject(object, name, currentpath) {
         deleteButton.id = currentpath + ".deleteButton";
         deleteButton.appendChild(document.createTextNode("X"));
         description.appendChild(deleteButton);
-        newElement.appendChild(description);
+        detailsElement.appendChild(description);
         let purposeLabel = document.createElement("label");
         purposeLabel.for = currentpath + ".purpose";
         purposeLabel.textContent = "Purpose: ";
@@ -64,7 +65,7 @@ function getScreenObject(object, name, currentpath) {
         goesto.id = currentpath + ".goesto";
     } else {
         description.appendChild(document.createTextNode("screens"));
-        newElement.appendChild(description);
+        detailsElement.appendChild(description);
     }
 
     if (!Object.hasOwn(object, "goto")) {
@@ -116,9 +117,13 @@ function getScreenObject(object, name, currentpath) {
             addOption.appendChild(document.createTextNode("+"));
             optionsName.appendChild(addOption);
             options.appendChild(optionsName);
-            newElement.appendChild(options);
+            const optionsDiv = document.createElement("div");
+            optionsDiv.appendChild(options);
+            newElement.appendChild(optionsDiv);
             for (childObject in object.options) {
-                options.appendChild(getScreenObject(Object.getOwnPropertyDescriptor(object.options, childObject).value, childObject, currentpath + "." + childObject));
+                let optionDiv = document.createElement("div");
+                optionDiv.appendChild(getScreenObject(Object.getOwnPropertyDescriptor(object.options, childObject).value, childObject, currentpath + "." + childObject));
+                optionsDiv.appendChild(optionDiv);
             }
         }
     } else if (currentpath != "screens") {
@@ -135,7 +140,8 @@ function getScreenObject(object, name, currentpath) {
         goto.id = currentpath + ".goto";
         newElement.appendChild(goto);
     }
-    return newElement;
+    detailsElement.appendChild(newElement);
+    return detailsElement;
 }
 
 document.body.addEventListener("input", (e) => {
@@ -180,7 +186,7 @@ document.body.addEventListener("input", (e) => {
                 configurable: true,
                 enumerable: true,
             });
-            Reflect.deleteProperty(getValueFromPath(e.target.parentElement.parentElement.id.replace(/\.[^.]*$/, "")).options, e.target.parentElement.parentElement.id.split(".")[e.target.parentElement.parentElement.id.split(".").length - 1]);
+            Reflect.deleteProperty(getValueFromPath(e.target.parentElement.parentElement.id.replace(/\.[^.]*$/, "")).options, e.target.parentElement.parentElement.id.split(".")[e.target.parentElement.parentElement.parentElement.id.split(".").length - 1]);
             var originalID = e.target.parentElement.parentElement.id;
             for (element of document.querySelectorAll("#" + CSS.escape(originalID) + " *, #" + CSS.escape(originalID))) {
                 if (element.id) {
@@ -197,16 +203,16 @@ document.body.addEventListener("click", (e) => {
         screens.remove();
         document.body.appendChild(getScreenObject(gameFile.screens, "screens", "screens"));
     } else if (e.target.id.endsWith(".addOption")) {
-        console.log(e.target.parentElement.parentElement.parentElement.id)
+        console.log(e.target.parentElement.parentElement.parentElement.parentElement.parentElement.id)
         let optionName = "newOption";
         let i = 1;
-        while (Object.hasOwn(getValueFromPath(e.target.parentElement.parentElement.parentElement.id).options, optionName + i)) {
-            if (Object.hasOwn(getValueFromPath(e.target.parentElement.parentElement.parentElement.id).options, optionName + i)) {
+        while (Object.hasOwn(getValueFromPath(e.target.parentElement.parentElement.parentElement.parentElement.parentElement.id).options, optionName + i)) {
+            if (Object.hasOwn(getValueFromPath(e.target.parentElement.parentElement.parentElement.parentElement.parentElement.id).options, optionName + i)) {
                 i++
             }
         }
         optionName += i;
-        Object.defineProperty(getValueFromPath(e.target.parentElement.parentElement.parentElement.id).options, optionName, {
+        Object.defineProperty(getValueFromPath(e.target.parentElement.parentElement.parentElement.parentElement.parentElement.id).options, optionName, {
             value: { text: "" , options: {}},
             configurable: true,
             enumerable: true,
