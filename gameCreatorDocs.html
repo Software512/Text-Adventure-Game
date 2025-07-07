@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width">
+    <title>Game Creator Docs</title>
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Text-Based Adventure Game Creator <span style="font-style: italic;">Documentation</span></h1>
+    <p>
+        The game creation tool is designed to be somewhat user-friendly, but not to protect the user from themselves in every possible scenario. <br>
+        Mainly, there are the following things you need to look out for or the game player may throw an error:
+    </p>
+    <ul>
+        <li>Unless the &quot;Option goes to other screen&quot; or &quot;Is end screen&quot; option is checked, you must have an option in the options list.</li>
+        <li>The &quot;purpose&quot; and &quot;text&quot; attributes should be set in each option.</li>
+        <li>Do not have more than one option with the same name, as it will just be processed as the last value that was unique.</li>
+    </ul>
+    <h2>How to Use The Tool</h2>
+    <p>
+        Set the name of your game in the top-left corner. You can edit values in all the text boxes. <br>
+        Create a new option by pressing the &quot;+&quot; button. The game file follows a nested structure of options. <br>
+        For an end screen, check the &quot;Is end screen&quot; checkbox. &quot; <br>
+        Check &quot;Option goes to other screen&quot; to jump around to a seperate screen and then set the &quot;goto&quot; textbox to a path. <br>
+        A path references a place on the tree. For example, the path for the screen for door 1 would be &quot;screens.options.door 1&quot;.
+    </p>
+    <h2>Notes On Unintended Behaviors of The Tool</h2>
+    <p>
+        When you toggle a checkbox or add/remove an option, the open/closed state of the dropdowns will reset. <br>
+        When you change the name of an option, it will be listed last in the game file and in game in the screen it is in. This can be remedied by renaming and naming back all other options in the screen. 
+    </p>
+</body>
+
+</html>

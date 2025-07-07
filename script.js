@@ -81,6 +81,7 @@ function error(message) {
     document.getElementById("mainMenu").style.display = "";
     document.getElementById("playScreen").style.display = "none";
     document.getElementById("save").disabled = true;
+    document.getElementById("save").removeAttribute("href");
     document.getElementById("reset").disabled = true;
     document.getElementById("fileInfo").innerText = "No file chosen"
 }

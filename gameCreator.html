@@ -22,13 +22,21 @@
             top: 0;
             background-color: white;
             border-bottom: 1px solid black;
-            width: 100%;
+            width: 100vw;
             padding: 1% 0;
             margin-bottom: 5px;
         }
 
         #name {
             margin-left: 1%;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        #gameUpload {
+            display: none;
         }
 
         #screens {
@@ -40,7 +48,12 @@
 <body>
     <div id="menuBar">
         <input id="name" placeholder="Name" value="New Game">
+        <button id="newGame">New Game</button>
+        <button id="load">Load</button>
+        <a id="saveLink"><button id="save">Save</button></a>
     </div>
+
+    <input type="file" accept=".json" id="gameUpload">
 
     <script src="gameCreator.js"></script>
 </body>

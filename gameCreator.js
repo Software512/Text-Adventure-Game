@@ -1,31 +1,7 @@
-var gameFile = {
-    "name": "New Game",
-    "screens": {
-        "text": "Example",
-        "header": "example",
-        "options": {
-            "door 1": {
-                "purpose": "open door 1",
-                "text": "Behind door 1 is a portal leading back to the beginning.",
-                "options": {
-                    "continue": {
-                        "purpose": "go through the portal",
-                        "goto": "screens"
-                    }
-                }
-            },
-            "Door 2": {
-                "purpose": "open door 2",
-                "type": "end",
-                "style": "death",
-                "text": "There was a lion behind the door and it ate you.",
-                "disableUndo": true
-            }
-        }
-    }
-}
+var saveURL;
+var gameFile;
+// I never declared the variable "screens", but it exists.
 
-document.body.appendChild(getScreenObject(gameFile.screens, "screens", "screens"));
 
 function getScreenObject(object, name, currentpath) {
     const detailsElement = document.createElement("details")
@@ -46,7 +22,7 @@ function getScreenObject(object, name, currentpath) {
         description.appendChild(deleteButton);
         detailsElement.appendChild(description);
         let purposeLabel = document.createElement("label");
-        purposeLabel.for = currentpath + ".purpose";
+        purposeLabel.setAttribute("for", currentpath + ".purpose");
         purposeLabel.textContent = "Purpose: ";
         purposeLabel.id = currentpath + ".purposeLabel";
         newElement.appendChild(purposeLabel);
@@ -56,7 +32,7 @@ function getScreenObject(object, name, currentpath) {
         newElement.appendChild(purpose);
         newElement.appendChild(document.createElement("br"));
         goestoLabel = document.createElement("label");
-        goestoLabel.for = currentpath + ".goesto";
+        goestoLabel.setAttribute("for", currentpath + ".goesto");
         goestoLabel.textContent = "Option goes to other screen: ";
         goestoLabel.id = currentpath + ".goestoLabel";
         newElement.appendChild(goestoLabel);
@@ -74,7 +50,7 @@ function getScreenObject(object, name, currentpath) {
             newElement.appendChild(document.createElement("br"));
         }
         let headerLabel = document.createElement("label");
-        headerLabel.for = currentpath + ".header";
+        headerLabel.setAttribute("for", currentpath + ".header");
         headerLabel.textContent = "Header: ";
         headerLabel.id = currentpath + ".headerLabel";
         newElement.appendChild(headerLabel);
@@ -86,7 +62,7 @@ function getScreenObject(object, name, currentpath) {
         }
         newElement.appendChild(document.createElement("br"));
         let textLabel = document.createElement("label");
-        textLabel.for = currentpath + ".text";
+        textLabel.setAttribute("for", currentpath + ".text");
         textLabel.textContent = "Text: ";
         textLabel.id = currentpath + ".textLabel";
         newElement.appendChild(textLabel);
@@ -96,7 +72,7 @@ function getScreenObject(object, name, currentpath) {
         newElement.appendChild(text);
         newElement.appendChild(document.createElement("br"));
         let typeLabel = document.createElement("label");
-        typeLabel.for = currentpath + ".type";
+        typeLabel.setAttribute("for", currentpath + ".type");
         typeLabel.textContent = "Is end screen: ";
         typeLabel.id = currentpath + ".typeLabel";
         newElement.appendChild(typeLabel);
@@ -117,13 +93,11 @@ function getScreenObject(object, name, currentpath) {
             addOption.appendChild(document.createTextNode("+"));
             optionsName.appendChild(addOption);
             options.appendChild(optionsName);
-            const optionsDiv = document.createElement("div");
-            optionsDiv.appendChild(options);
-            newElement.appendChild(optionsDiv);
+            newElement.appendChild(options);
             for (childObject in object.options) {
                 let optionDiv = document.createElement("div");
                 optionDiv.appendChild(getScreenObject(Object.getOwnPropertyDescriptor(object.options, childObject).value, childObject, currentpath + "." + childObject));
-                optionsDiv.appendChild(optionDiv);
+                options.appendChild(optionDiv);
             }
         }
     } else if (currentpath != "screens") {
@@ -131,7 +105,7 @@ function getScreenObject(object, name, currentpath) {
         newElement.appendChild(goesto);
         newElement.appendChild(document.createElement("br"));
         let gotoLabel = document.createElement("label");
-        gotoLabel.for = currentpath + ".goto";
+        gotoLabel.setAttribute("for", currentpath + ".goto");
         gotoLabel.textContent = "Go to: ";
         gotoLabel.id = currentpath + ".gotoLabel";
         newElement.appendChild(gotoLabel);
@@ -143,6 +117,39 @@ function getScreenObject(object, name, currentpath) {
     detailsElement.appendChild(newElement);
     return detailsElement;
 }
+
+document.getElementById("load").addEventListener("click", () => {
+    if (!confirm("This will reset any unsaved work. Do you want to continue?")) {
+        return;
+    }
+    document.getElementById("gameUpload").click();
+});
+
+document.getElementById("newGame").addEventListener("click", () => {
+    if (!confirm("This will reset any unsaved work. Do you want to continue?")) {
+        return;
+    }
+    newGame();
+});
+
+document.getElementById("gameUpload").addEventListener("input", (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+
+    reader.addEventListener("load", () => {
+        try {
+            gameFile = JSON.parse(reader.result);
+            screens.remove();
+            document.body.appendChild(getScreenObject(gameFile.screens, "screens", "screens"));
+        } catch {
+            alert("Error in game file.");
+        }
+    }, false);
+
+    if (file) {
+        reader.readAsText(file);
+    }
+});
 
 document.body.addEventListener("input", (e) => {
     if (e.target.id == "name") {
@@ -186,7 +193,7 @@ document.body.addEventListener("input", (e) => {
                 configurable: true,
                 enumerable: true,
             });
-            Reflect.deleteProperty(getValueFromPath(e.target.parentElement.parentElement.id.replace(/\.[^.]*$/, "")).options, e.target.parentElement.parentElement.id.split(".")[e.target.parentElement.parentElement.parentElement.id.split(".").length - 1]);
+            Reflect.deleteProperty(getValueFromPath(e.target.parentElement.parentElement.id.replace(/\.[^.]*$/, "")).options, e.target.parentElement.parentElement.id.split(".")[e.target.parentElement.parentElement.id.split(".").length - 1]);
             var originalID = e.target.parentElement.parentElement.id;
             for (element of document.querySelectorAll("#" + CSS.escape(originalID) + " *, #" + CSS.escape(originalID))) {
                 if (element.id) {
@@ -195,6 +202,7 @@ document.body.addEventListener("input", (e) => {
             }
         }
     }
+    updateSaveButton();
 });
 
 document.body.addEventListener("click", (e) => {
@@ -202,23 +210,24 @@ document.body.addEventListener("click", (e) => {
         Reflect.deleteProperty(getValueFromPath(e.target.parentElement.parentElement.id.replace(/\.[^.]*$/, "")).options, e.target.parentElement.parentElement.id.split(".")[e.target.parentElement.parentElement.id.split(".").length - 1]);
         screens.remove();
         document.body.appendChild(getScreenObject(gameFile.screens, "screens", "screens"));
+        updateSaveButton();
     } else if (e.target.id.endsWith(".addOption")) {
-        console.log(e.target.parentElement.parentElement.parentElement.parentElement.parentElement.id)
         let optionName = "newOption";
         let i = 1;
-        while (Object.hasOwn(getValueFromPath(e.target.parentElement.parentElement.parentElement.parentElement.parentElement.id).options, optionName + i)) {
-            if (Object.hasOwn(getValueFromPath(e.target.parentElement.parentElement.parentElement.parentElement.parentElement.id).options, optionName + i)) {
+        while (Object.hasOwn(getValueFromPath(e.target.parentElement.parentElement.parentElement.parentElement.id).options, optionName + i)) {
+            if (Object.hasOwn(getValueFromPath(e.target.parentElement.parentElement.parentElement.parentElement.id).options, optionName + i)) {
                 i++
             }
         }
         optionName += i;
-        Object.defineProperty(getValueFromPath(e.target.parentElement.parentElement.parentElement.parentElement.parentElement.id).options, optionName, {
-            value: { text: "" , options: {}},
+        Object.defineProperty(getValueFromPath(e.target.parentElement.parentElement.parentElement.parentElement.id).options, optionName, {
+            value: { text: "", options: {}, purpose: "" },
             configurable: true,
             enumerable: true,
         });
         screens.remove();
         document.body.appendChild(getScreenObject(gameFile.screens, "screens", "screens"));
+        updateSaveButton();
     }
 });
 
@@ -235,3 +244,51 @@ function getValueFromPath(path) {
         alert("The editor tried to access non-existent path in game file " + path + ".");
     }
 }
+
+function updateSaveButton() {
+    if (saveURL) {
+        URL.revokeObjectURL(saveURL);
+
+    }
+    saveURL = URL.createObjectURL(new Blob([JSON.stringify(gameFile)], { type: "application/json" }));
+    document.getElementById("saveLink").href = saveURL;
+    document.getElementById("saveLink").download = gameFile.name;
+}
+
+function newGame() {
+    gameFile = {
+        "name": "New Game",
+        "screens": {
+            "text": "Example",
+            "header": "example",
+            "options": {
+                "door 1": {
+                    "purpose": "open door 1",
+                    "text": "Behind door 1 is a portal leading back to the beginning.",
+                    "options": {
+                        "continue": {
+                            "purpose": "go through the portal",
+                            "goto": "screens"
+                        }
+                    }
+                },
+                "Door 2": {
+                    "purpose": "open door 2",
+                    "type": "end",
+                    "style": "death",
+                    "text": "There was a lion behind the door and it ate you.",
+                    "disableUndo": true,
+                    "options": {}
+                }
+            }
+        }
+    }
+    
+    if (document.querySelector("#screens")) {
+        screens.remove();
+    }
+    document.body.appendChild(getScreenObject(gameFile.screens, "screens", "screens"));
+    updateSaveButton();
+}
+
+newGame();
