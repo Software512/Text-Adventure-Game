@@ -1,6 +1,7 @@
 # Text-Based Adventure Game Player
-A work in progress. The idea is that the user can create their own text-based adventure games.
-<hr>
-Play at https://software512.github.io/Text-Adventure-Game/
+Allows you to create text-based adventure games, similar to a choose-your-own-adventure book, and play those games created by you or other people.
 
-Documentation available at https://software512.github.io/Text-Adventure-Game/docs.html
+---
+Play at https://software512.github.io/Text-Adventure-Game/.
+
+Documentation available at https://software512.github.io/Text-Adventure-Game/createGame.html.
