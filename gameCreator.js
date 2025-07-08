@@ -71,6 +71,21 @@ function getScreenObject(object, name, currentpath) {
         text.id = currentpath + ".text";
         newElement.appendChild(text);
         newElement.appendChild(document.createElement("br"));
+
+
+        const disableUndoLabel = document.createElement("label");
+        disableUndoLabel.setAttribute("for", currentpath + ".goto");
+        disableUndoLabel.textContent = "Disable undoing previous choice: ";
+        disableUndoLabel.id = currentpath + ".disableUndoLabel";
+        newElement.appendChild(disableUndoLabel);
+        const disableUndo = document.createElement("input");
+        disableUndo.setAttribute("type", "checkbox");
+        disableUndo.id = currentpath + ".type";
+        if (object.disableUndo) {
+            disableUndo.setAttribute("checked", "checked");
+        }
+        newElement.appendChild(disableUndo);
+        newElement.appendChild(document.createElement("br"));
         let typeLabel = document.createElement("label");
         typeLabel.setAttribute("for", currentpath + ".type");
         typeLabel.textContent = "Is end screen: ";
@@ -113,7 +128,9 @@ function getScreenObject(object, name, currentpath) {
         goto.value = object.goto;
         goto.id = currentpath + ".goto";
         newElement.appendChild(goto);
+        newElement.appendChild(document.createElement("br"));
     }
+
     detailsElement.appendChild(newElement);
     return detailsElement;
 }
@@ -283,7 +300,7 @@ function newGame() {
             }
         }
     }
-    
+
     if (document.querySelector("#screens")) {
         screens.remove();
     }
