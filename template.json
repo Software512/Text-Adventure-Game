@@ -19,7 +19,8 @@
                 "type": "end",
                 "style": "death",
                 "text": "There was a lion behind the door and it ate you.",
-                "disableUndo": true
+                "disableUndo": true,
+                "pageTitle": "You are dead."
             }
         }
     },

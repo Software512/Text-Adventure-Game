@@ -56,12 +56,14 @@ document.getElementById("reset").addEventListener("click", () => {
         gameFile.progress = ["screens"];
         document.getElementById("save").disabled = true;
         document.getElementById("reset").disabled = true;
+        document.getElementById("saveLink").removeAttribute("href");
     }
 });
 
 document.getElementById("quit").addEventListener("click", () => {
     document.getElementById("mainMenu").style.display = "";
     document.getElementById("playScreen").style.display = "none";
+    document.title = "Text-Based Adventure Game Player";
 });
 
 function getValueFromPath(path) {
@@ -81,9 +83,10 @@ function error(message) {
     document.getElementById("mainMenu").style.display = "";
     document.getElementById("playScreen").style.display = "none";
     document.getElementById("save").disabled = true;
-    document.getElementById("save").removeAttribute("href");
+    document.getElementById("saveLink").removeAttribute("href");
     document.getElementById("reset").disabled = true;
-    document.getElementById("fileInfo").innerText = "No file chosen"
+    document.getElementById("fileInfo").innerText = "No file chosen";
+    document.title = "Text-Based Adventure Game Player";
 }
 
 function getScreen() {
@@ -119,6 +122,13 @@ function getScreen() {
     } else {
         error("No options were found.");
         return;
+    }
+    if (currentPathContents.pageTitle) {
+        document.title = currentPathContents.pageTitle + " | Text-Based Adventure Game Player";
+    } else if (gameFile.pageTitle) {
+        document.title = gameFile.pageTitle + " | Text-Based Adventure Game Player";
+    } else {
+        document.title = "Playing " + gameFile.name + " | Text-Based Adventure Game Player"
     }
     if (
         ((Object.hasOwn(currentPathContents, "disableUndo") && !currentPathContents.disableUndo) || (!Object.hasOwn(currentPathContents, "disableUndo") && !gameFile.disableUndo)) && gameFile.progress.length > 1) {
@@ -240,6 +250,7 @@ document.getElementById("input").addEventListener("keydown", (e) => {
         if (e.target.value.toLowerCase() == "quit") {
             document.getElementById("mainMenu").style.display = "";
             document.getElementById("playScreen").style.display = "none";
+            document.title = "Text-Based Adventure Game Player";
         } else if (e.target.value.toLowerCase() == "restart") {
             if (confirm("This will reset any unsaved progress. Do you want to continue?")) {
                 gameFile.progress = ["screens"];
@@ -282,5 +293,6 @@ function updateSaveButton() {
     } else {
         document.getElementById("save").disabled = true;
         document.getElementById("reset").disabled = true;
+        document.getElementById("saveLink").removeAttribute("href");
     }
 }
