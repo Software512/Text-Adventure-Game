@@ -71,16 +71,14 @@ function getScreenObject(object, name, currentpath) {
         text.id = currentpath + ".text";
         newElement.appendChild(text);
         newElement.appendChild(document.createElement("br"));
-
-
         const disableUndoLabel = document.createElement("label");
-        disableUndoLabel.setAttribute("for", currentpath + ".goto");
+        disableUndoLabel.setAttribute("for", currentpath + ".disableUndo");
         disableUndoLabel.textContent = "Disable undoing previous choice: ";
         disableUndoLabel.id = currentpath + ".disableUndoLabel";
         newElement.appendChild(disableUndoLabel);
         const disableUndo = document.createElement("input");
         disableUndo.setAttribute("type", "checkbox");
-        disableUndo.id = currentpath + ".type";
+        disableUndo.id = currentpath + ".disableUndo";
         if (object.disableUndo) {
             disableUndo.setAttribute("checked", "checked");
         }
@@ -218,7 +216,13 @@ document.body.addEventListener("input", (e) => {
                 }
             }
         }
-    }
+    } else if (e.target.id.endsWith(".disableUndo")) {
+        if (e.target.checked) {
+            getValueFromPath(e.target.id.slice(0, -12)).disableUndo = true;
+        } else {
+            getValueFromPath(e.target.id.slice(0, -12)).disableUndo = false;
+        }
+    } 
     updateSaveButton();
 });
 
