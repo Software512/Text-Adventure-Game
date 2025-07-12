@@ -10,6 +10,7 @@
         body {
             font-family: sans-serif;
             margin: 0;
+            background-color: #e3f5e5;
         }
 
         details div {
@@ -20,7 +21,7 @@
         #menuBar {
             position: sticky;
             top: 0;
-            background-color: white;
+            background-color: #5c7c85;
             border-bottom: 1px solid black;
             width: 100vw;
             padding: 1% 0;
@@ -42,16 +43,34 @@
         #screens {
             margin-left: 1em;
         }
+
+        #fileOptions {
+            float: right;
+            margin-right: 1%;
+        }
+
+        #gamePreview {
+            float: right;
+            margin-right: 1%;
+            width: 50%;
+            aspect-ratio: 16/9;
+            border: 2px solid gray;
+            background-color: white;
+        }
     </style>
 </head>
 
 <body>
     <div id="menuBar">
         <input id="name" placeholder="Name" value="New Game">
-        <button id="newGame">New Game</button>
-        <button id="load">Load</button>
-        <a id="saveLink"><button id="save">Save</button></a>
+        <button id="previewButton">Preview Game</button>
+        <div id="fileOptions">
+            <button id="newGame">New Game</button>
+            <button id="load">Load</button>
+            <a id="saveLink"><button id="save">Save</button></a>
+        </div>
     </div>
+    <iframe id="gamePreview" style="display: none;"></iframe>
 
     <input type="file" accept=".json" id="gameUpload">
 

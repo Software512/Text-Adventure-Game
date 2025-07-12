@@ -147,6 +147,16 @@ document.getElementById("newGame").addEventListener("click", () => {
     newGame();
 });
 
+document.getElementById("previewButton").addEventListener("click", () => {
+    if (document.getElementById("gamePreview").style.display == "none") {
+        document.getElementById("gamePreview").src = "index.html?gameurl=data:application/json;utf-8," + JSON.stringify(gameFile);
+        document.getElementById("gamePreview").style.display = "";
+    } else {
+        document.getElementById("gamePreview").style.display = "none"
+    }
+
+});
+
 document.getElementById("gameUpload").addEventListener("input", (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
@@ -167,6 +177,7 @@ document.getElementById("gameUpload").addEventListener("input", (e) => {
 });
 
 document.body.addEventListener("input", (e) => {
+    document.getElementById("gamePreview").style.display = "none";
     if (e.target.id == "name") {
         if (e.target.value) {
             gameFile.name = e.target.value;
@@ -222,7 +233,7 @@ document.body.addEventListener("input", (e) => {
         } else {
             getValueFromPath(e.target.id.slice(0, -12)).disableUndo = false;
         }
-    } 
+    }
     updateSaveButton();
 });
 
@@ -274,6 +285,7 @@ function updateSaveButton() {
     saveURL = URL.createObjectURL(new Blob([JSON.stringify(gameFile)], { type: "application/json" }));
     document.getElementById("saveLink").href = saveURL;
     document.getElementById("saveLink").download = gameFile.name;
+    document.getElementById("gamePreview").style.display = "none";
 }
 
 function newGame() {

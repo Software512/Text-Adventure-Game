@@ -35,18 +35,22 @@
         Create a new option by pressing the &quot;+&quot; button. The game file follows a nested structure of options.
         <br>
         When you are done, you can save your game with the &quot;Save&quot; and load it in either the <a
-            href="index.html" target="_blank">game player</a> or the game creator tool.
+            href="index.html" target="_blank">game player</a> or the game creator tool. <br>
+        Click the &quot;Preview Game&quot; button in the menu bar to test your game file. The preview will close when you click the button again or edit the game file.
     </p>
     <h2>What the Options Do</h2>
     <ul>
         <li>Purpose: Required; What the user types in to make that choice.</li>
         <li>Header: Optional; What text is shown in the header at the top of th screen.</li>
         <li>Text: Required; What text is shown to the user.</li>
-        <li>Disable undoing previous choice: Not recommended, but will disable the user's ability to type "go back" to undo the last choice on that screen.</li>
+        <li>Disable undoing previous choice: Not recommended, but will disable the user's ability to type "go back" to
+            undo the last choice on that screen.</li>
         <li>Option goes to other screen: If the choice jumps to a screen not directly descended from the previous
             screen.</li>
-        <li>Is end screen: Will keep any options from being shown to the user. Use for any screen that is an ending.</li>
-        <li>Go to: Required if &quot;Option goes to other screen&quot; is checked; References a place on the tree to jump to. For example, the path for the screen for door 1 in the
+        <li>Is end screen: Will keep any options from being shown to the user. Use for any screen that is an ending.
+        </li>
+        <li>Go to: Required if &quot;Option goes to other screen&quot; is checked; References a place on the tree to
+            jump to. For example, the path for the screen for door 1 in the
             default game file would be
             &quot;screens.options.door 1&quot;.</li>
     </ul>

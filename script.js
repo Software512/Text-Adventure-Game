@@ -4,6 +4,43 @@ var gameFile;
 var saveURL;
 var test;
 
+
+async function checkUrlForGamefile() {
+    if (window.location.href.includes("?gameurl=")) {
+        if (window.location.href.split("?gameurl=").length <= 2) {
+            try {
+                const response = await fetch(window.location.href.split("?gameurl=")[1]);
+                const text = await response.text();
+                try {
+                    gameFile = JSON.parse(text);
+                    try {
+                        document.getElementById("fileInfo").innerText = gameFile.name + "\n(" + window.location.href.split("?gameurl=")[1] + ")";
+                        document.getElementById("play").disabled = false;
+                        if (!gameFile.progress || String(gameFile.progress) == String(["screens"])) {
+                            gameFile.progress = ["screens"];
+                            document.getElementById("save").disabled = true;
+                            document.getElementById("reset").disabled = true;
+                        } else {
+                            updateSaveButton();
+                        };
+                        document.getElementById("mainMenu").style.display = "none";
+                        document.getElementById("playScreen").style.display = "";
+                        getScreen();
+                    } catch (e) {
+                        alert("Game file does not have a name set." + e)
+                    }
+                } catch {
+                    alert("Error in game file.");
+                }
+            } catch {
+                alert("Could not get game file from URL " + window.location.href.split("?gameurl=")[1]);
+            }
+        }
+    }
+}
+
+checkUrlForGamefile();
+
 document.getElementById("gameUpload").addEventListener("input", (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
@@ -138,14 +175,18 @@ function getScreen() {
     let style;
     if (Object.hasOwn(currentPathContents, "style")) {
         style = getValueFromPath("styles." + currentPathContents.style);
+        if (JSON.stringify(style).includes(";")) {
+            error("Game file attempted to inject disallowed code into the player.");
+            return;
+        }
     } else if (Object.hasOwn(gameFile, "styles")) {
         if (Object.hasOwn(gameFile.styles, "default")) {
             style = gameFile.styles.default;
+            if (JSON.stringify(style).includes(";")) {
+                error("Game file attempted to inject disallowed code into the player.");
+                return;
+            }
         }
-    }
-    if (JSON.stringify(style).includes(";")) {
-        error("Game file attempted to inject disallowed code into the player.");
-        return;
     }
     if (style != undefined) {
         // Very innefficient with code size but I'm too lazy.
