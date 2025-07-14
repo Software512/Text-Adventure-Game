@@ -187,9 +187,13 @@ document.body.addEventListener("input", (e) => {
     } else if (e.target.id.endsWith(".header")) {
         getValueFromPath(e.target.id.slice(0, -7)).header = e.target.value;
     } else if (e.target.id.endsWith(".text")) {
-        getValueFromPath(e.target.id.slice(0, -5)).text = e.target.value;
+        if (e.target.value) {
+            getValueFromPath(e.target.id.slice(0, -5)).text = e.target.value;
+        }
     } else if (e.target.id.endsWith(".purpose")) {
-        getValueFromPath(e.target.id.slice(0, -8)).purpose = e.target.value;
+        if (e.target.value) {
+            getValueFromPath(e.target.id.slice(0, -8)).purpose = e.target.value;
+        }
     } else if (e.target.id.endsWith(".goesto")) {
         if (e.target.checked) {
             getValueFromPath(e.target.id.slice(0, -7)).goto = "screens";
@@ -213,20 +217,23 @@ document.body.addEventListener("input", (e) => {
     } else if (e.target.id.endsWith(".goto")) {
         getValueFromPath(e.target.id.slice(0, -5)).goto = e.target.value;
     } else if (e.target.id.endsWith(".descriptionInput")) {
-        if (!Object.hasOwn(getValueFromPath(e.target.parentElement.parentElement.id.replace(/\.[^.]*$/, "")).options, e.target.value)) {
-            Object.defineProperty(getValueFromPath(e.target.parentElement.parentElement.id.replace(/\.[^.]*$/, "")).options, e.target.value, {
-                value: getValueFromPath(e.target.parentElement.parentElement.id),
-                configurable: true,
-                enumerable: true,
-            });
-            Reflect.deleteProperty(getValueFromPath(e.target.parentElement.parentElement.id.replace(/\.[^.]*$/, "")).options, e.target.parentElement.parentElement.id.split(".")[e.target.parentElement.parentElement.id.split(".").length - 1]);
-            var originalID = e.target.parentElement.parentElement.id;
-            for (element of document.querySelectorAll("#" + CSS.escape(originalID) + " *, #" + CSS.escape(originalID))) {
-                if (element.id) {
-                    element.id = element.id.replace(originalID, originalID.replace(/\.[^.]*$/, "") + "." + e.target.value);
+        if (e.target.value) {
+            if (!Object.hasOwn(getValueFromPath(e.target.parentElement.parentElement.id.replace(/\.[^.]*$/, "")).options, e.target.value)) {
+                Object.defineProperty(getValueFromPath(e.target.parentElement.parentElement.id.replace(/\.[^.]*$/, "")).options, e.target.value, {
+                    value: getValueFromPath(e.target.parentElement.parentElement.id),
+                    configurable: true,
+                    enumerable: true,
+                });
+                Reflect.deleteProperty(getValueFromPath(e.target.parentElement.parentElement.id.replace(/\.[^.]*$/, "")).options, e.target.parentElement.parentElement.id.split(".")[e.target.parentElement.parentElement.id.split(".").length - 1]);
+                var originalID = e.target.parentElement.parentElement.id;
+                for (element of document.querySelectorAll("#" + CSS.escape(originalID) + " *, #" + CSS.escape(originalID))) {
+                    if (element.id) {
+                        element.id = element.id.replace(originalID, originalID.replace(/\.[^.]*$/, "") + "." + e.target.value);
+                    }
                 }
             }
         }
+
     } else if (e.target.id.endsWith(".disableUndo")) {
         if (e.target.checked) {
             getValueFromPath(e.target.id.slice(0, -12)).disableUndo = true;
@@ -253,7 +260,7 @@ document.body.addEventListener("click", (e) => {
         }
         optionName += i;
         Object.defineProperty(getValueFromPath(e.target.parentElement.parentElement.parentElement.parentElement.id).options, optionName, {
-            value: { text: "", options: {}, purpose: "" },
+            value: { text: "", options: {}, purpose: "do something" },
             configurable: true,
             enumerable: true,
         });
@@ -308,7 +315,6 @@ function newGame() {
                 "Door 2": {
                     "purpose": "open door 2",
                     "type": "end",
-                    "style": "death",
                     "text": "There was a lion behind the door and it ate you.",
                     "disableUndo": true,
                     "options": {}
