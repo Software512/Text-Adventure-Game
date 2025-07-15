@@ -104,6 +104,9 @@ function getScreenObject(object, name, currentpath) {
             const addOption = document.createElement("button");
             addOption.id = currentpath + ".addOption";
             addOption.appendChild(document.createTextNode("+"));
+            if (!Object.keys(object.options).length) {
+                optionsName.style.color = "red";
+            }
             optionsName.appendChild(addOption);
             options.appendChild(optionsName);
             newElement.appendChild(options);
@@ -188,11 +191,17 @@ document.body.addEventListener("input", (e) => {
         getValueFromPath(e.target.id.slice(0, -7)).header = e.target.value;
     } else if (e.target.id.endsWith(".text")) {
         if (e.target.value) {
+            document.getElementById(e.target.id.slice(0, -5) + ".textLabel").style.color = "";
             getValueFromPath(e.target.id.slice(0, -5)).text = e.target.value;
+        } else {
+            document.getElementById(e.target.id.slice(0, -5) + ".textLabel").style.color = "red";
         }
     } else if (e.target.id.endsWith(".purpose")) {
         if (e.target.value) {
+            document.getElementById(e.target.id.slice(0, -8) + ".purposeLabel").style.color = "";
             getValueFromPath(e.target.id.slice(0, -8)).purpose = e.target.value;
+        } else {
+            document.getElementById(e.target.id.slice(0, -8) + ".purposeLabel").style.color = "red";
         }
     } else if (e.target.id.endsWith(".goesto")) {
         if (e.target.checked) {
@@ -218,7 +227,9 @@ document.body.addEventListener("input", (e) => {
         getValueFromPath(e.target.id.slice(0, -5)).goto = e.target.value;
     } else if (e.target.id.endsWith(".descriptionInput")) {
         if (e.target.value) {
+            e.target.parentElement.style.color = "";
             if (!Object.hasOwn(getValueFromPath(e.target.parentElement.parentElement.id.replace(/\.[^.]*$/, "")).options, e.target.value)) {
+                e.target.parentElement.style.color = "";
                 Object.defineProperty(getValueFromPath(e.target.parentElement.parentElement.id.replace(/\.[^.]*$/, "")).options, e.target.value, {
                     value: getValueFromPath(e.target.parentElement.parentElement.id),
                     configurable: true,
@@ -231,7 +242,11 @@ document.body.addEventListener("input", (e) => {
                         element.id = element.id.replace(originalID, originalID.replace(/\.[^.]*$/, "") + "." + e.target.value);
                     }
                 }
+            } else {
+                e.target.parentElement.style.color = "red";
             }
+        } else {
+            e.target.parentElement.style.color = "red";
         }
 
     } else if (e.target.id.endsWith(".disableUndo")) {
